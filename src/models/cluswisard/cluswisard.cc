@@ -272,7 +272,7 @@ protected:
   }
   
   void leaveOneOut(const std::vector<int>& image, const std::string& label){
-    auto d = clusters[label].untrain(image);
+    clusters[label].untrain(image);
   }
 
   void checkInputLabels(const std::size_t numberOfInputs, std::map<int, std::string> &labels) {
