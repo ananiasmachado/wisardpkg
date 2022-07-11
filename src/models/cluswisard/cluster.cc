@@ -110,6 +110,49 @@ public:
       bestDiscriminator->train(image);
     }
   }
+  
+  void untrain(const BinInput& image){
+    if(discriminators.size() == 0){
+      makeDiscriminator(0);
+      discriminators[0]->untrain(image);
+      return;
+    }
+
+    double bestValue = 0.0;
+    bool trained = false;
+    Discriminator* bestDiscriminator = NULL;
+
+    for(std::size_t i = 0; i < discriminators.size(); i++){
+      auto votes = discriminators[i]->classify(image);
+      double score = getScore(votes);
+      double count = discriminators[i]->getNumberOfTrainings();
+
+      if(score>=bestValue){
+          bestValue = score;
+          bestDiscriminator = discriminators[i];
+      }
+
+      double limit = minScore + count/threshold;
+      limit = limit > 1.0 ? 1.0 : limit;
+
+      if(score >= limit){
+        discriminators[i]->untrain(image);
+        trained = true;
+      }
+    }
+
+    if(!trained && discriminators.size() < discriminatorsLimit){
+      int index = discriminators.size();
+      makeDiscriminator(index);
+      discriminators[index]->untrain(image);
+      trained = true;
+    }
+
+    if(!trained && bestDiscriminator != NULL){
+      bestDiscriminator->untrain(image);
+    }
+  }
+
 
   std::vector<std::vector<int>> classify(const BinInput& image) const{
     std::vector<std::vector<int>> output(discriminators.size());
