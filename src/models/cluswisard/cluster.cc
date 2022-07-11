@@ -110,14 +110,6 @@ public:
       bestDiscriminator->train(image);
     }
   }
-  
-  void untrain(const std::vector<int>& image){
-      addr_t index = getIndex(image);
-      auto it = positions.find(index);
-      if(it != positions.end()){
-        it->second--;
-      }
-  }
 
   std::vector<std::vector<int>> classify(const BinInput& image) const{
     std::vector<std::vector<int>> output(discriminators.size());
