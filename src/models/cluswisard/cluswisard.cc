@@ -270,10 +270,6 @@ protected:
     label = label.substr(0, label.find("::"));
     clusters[label].train(image);
   }
-  
-  void leaveOneOut(const std::vector<int>& image, const std::string& label){
-    clusters[label].untrain(image);
-  }
 
   void checkInputLabels(const std::size_t numberOfInputs, std::map<int, std::string> &labels) {
     if (labels.size() > numberOfInputs) {
