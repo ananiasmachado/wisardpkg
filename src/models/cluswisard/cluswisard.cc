@@ -70,6 +70,10 @@ public:
       train(images[i]);
     }
   }
+  
+  void untrain(const BinInput &image, const std::string &label) {
+    clusters[label].untrain(image);
+  }
 
   void trainUnsupervised(const DataSet &images) {
     if (clusters.size() == 0) {
