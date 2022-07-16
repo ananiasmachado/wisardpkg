@@ -226,6 +226,7 @@ PYBIND11_MODULE(wisardpkg, m){
       .def("classifyUnsupervised", (std::string (ClusWisardWrapper::*)(const BinInput&) const) &ClusWisardWrapper::classifyUnsupervised)
       .def("getMentalImage", &ClusWisardWrapper::getMentalImage)
       .def("getMentalImages", &ClusWisardWrapper::getMentalImages)
+      .def("untrain", &ClusWisardWrapper::untrain)
       .def("rank", (std::map<std::string, int> (ClusWisardWrapper::*)(const BinInput&) const) &ClusWisardWrapper::rank)
       .def("rank", (std::vector<std::map<std::string, int>> (ClusWisardWrapper::*)(const DataSet&) const) &ClusWisardWrapper::rank)
       .def("rankUnsupervised", (std::map<std::string, int> (ClusWisardWrapper::*)(const BinInput&) const) &ClusWisardWrapper::rankUnsupervised)
