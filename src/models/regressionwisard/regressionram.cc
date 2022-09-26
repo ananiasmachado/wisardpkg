@@ -44,6 +44,18 @@ public:
       it->second[1] += y;
     }
   }
+  
+  void untrain(const BinInput& image, const double y) {
+    addr_t index = std::get<0>(getIndex(image));
+
+    auto it = memory.find(index);
+    if (it == memory.end())
+      memory.insert(it, std::pair<addr_t, regression_content_t>(index, {1, y, 0}));
+    else{
+      it->second[0]--;
+      it->second[1] -= y;
+    }
+  }
 
   regression_content_t getVote(const BinInput& image) const {
     std::tuple<addr_t, bool> result = getIndex(image);
