@@ -243,6 +243,8 @@ PYBIND11_MODULE(wisardpkg, m){
       .def(py::init<int, py::kwargs>(), py::arg("addressSize"))
       .def("train", (void (RegressionWisardWrapper::*)(const BinInput&, const double)) &RegressionWisardWrapper::train)
       .def("train", (void (RegressionWisardWrapper::*)(const DataSet&)) &RegressionWisardWrapper::train)
+      .def("untrain", (void (RegressionWisardWrapper::*)(const BinInput&, const double)) &RegressionWisardWrapper::train)
+      .def("untrain", (void (RegressionWisardWrapper::*)(const DataSet&)) &RegressionWisardWrapper::train)
       .def("setMeanFunc", &RegressionWisardWrapper::setMeanFunc)
     ;
 
