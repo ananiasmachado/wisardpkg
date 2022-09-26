@@ -84,6 +84,30 @@ public:
       rams[i].train(input, y);
     }
   }
+  
+  void untrain(const DataSet& dataset) {
+    for (size_t i = 0; i < dataset.size(); i++){
+      untrain(dataset[i], dataset.getY(i));
+    }
+
+    for (int j = 0; j < steps; j++){
+      for (size_t i = 0; i < dataset.size(); i++){
+        calculateFit(dataset[i], dataset.getY(i));
+      }
+      applyFit();
+    }
+  }
+
+  void untrain(const BinInput& input, const double y){
+    if (rams.empty()) setRAMShuffle(input.size());
+
+    checkEntrySize(input.size());
+    numberOfTrainings++;
+    
+    for (size_t i = 0; i < rams.size(); i++){
+      rams[i].untrain(input, y);
+    }
+  }
 
   double predict(const BinInput& input) const {
     checkEntrySize(input.size());
