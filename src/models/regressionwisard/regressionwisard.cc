@@ -89,13 +89,6 @@ public:
     for (size_t i = 0; i < dataset.size(); i++){
       untrain(dataset[i], dataset.getY(i));
     }
-
-    for (int j = 0; j < steps; j++){
-      for (size_t i = 0; i < dataset.size(); i++){
-        calculateFit(dataset[i], dataset.getY(i));
-      }
-      applyFit();
-    }
   }
 
   void untrain(const BinInput& input, const double y){
