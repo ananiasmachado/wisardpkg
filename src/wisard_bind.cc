@@ -243,8 +243,8 @@ PYBIND11_MODULE(wisardpkg, m){
       .def(py::init<int, py::kwargs>(), py::arg("addressSize"))
       .def("train", (void (RegressionWisardWrapper::*)(const BinInput&, const double)) &RegressionWisardWrapper::train)
       .def("train", (void (RegressionWisardWrapper::*)(const DataSet&)) &RegressionWisardWrapper::train)
-      .def("untrain", (void (RegressionWisardWrapper::*)(const BinInput&, const double)) &RegressionWisardWrapper::train)
-      .def("untrain", (void (RegressionWisardWrapper::*)(const DataSet&)) &RegressionWisardWrapper::train)
+      .def("untrain", (void (RegressionWisardWrapper::*)(const BinInput&, const double)) &RegressionWisardWrapper::untrain)
+      .def("untrain", (void (RegressionWisardWrapper::*)(const DataSet&)) &RegressionWisardWrapper::untrain)
       .def("setMeanFunc", &RegressionWisardWrapper::setMeanFunc)
     ;
 
@@ -253,6 +253,8 @@ PYBIND11_MODULE(wisardpkg, m){
       .def(py::init<int, double, int, int, py::kwargs>(), py::arg("addressSize"), py::arg("minScore")=0.1, py::arg("threshold")=10, py::arg("limit")=5)
       .def("train", (void (ClusRegressionWisardWrapper::*)(const BinInput&, const double)) &ClusRegressionWisardWrapper::train)
       .def("train", (void (ClusRegressionWisardWrapper::*)(const DataSet&)) &ClusRegressionWisardWrapper::train)
+      .def("untrain", (void (ClusRegressionWisardWrapper::*)(const BinInput&, const double)) &ClusRegressionWisardWrapper::untrain)
+      .def("untrain", (void (ClusRegressionWisardWrapper::*)(const DataSet&)) &ClusRegressionWisardWrapper::untrain)
       .def("setMeanFunc", &ClusRegressionWisardWrapper::setMeanFunc)
     ;
 }
