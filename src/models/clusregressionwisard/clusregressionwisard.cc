@@ -105,6 +105,44 @@ public:
       bestOne->train(image, y);
     }
   }
+  
+  void untrain(const DataSet& dataset) {
+    for(size_t i=0; i<dataset.size(); i++){
+      untrain(dataset[i], dataset.getY(i));
+    }
+  }
+  
+  void untrain(const BinInput& image, const double y) {
+    double bestValue = 0.0;
+    bool trained = false;
+    RegressionWisard* bestOne = NULL;
+
+    for (unsigned int i = 0; i < rews.size(); i++)
+    {
+      auto votes = rews[i]->getVotes(image);
+      double score = getSimilarityScore(votes);
+      double count = rews[i]->getNumberOfTrainings();
+
+      if (score >= bestValue)
+      {
+        bestValue = score;
+        bestOne = rews[i];
+      }
+
+      double limit = minScore + count / threshold;
+      limit = limit > 1.0 ? 1.0 : limit;
+
+      if (score >= limit)
+      {
+        rews[i]->untrain(image, y);
+        trained = true;
+      }
+    }
+
+    if(!trained && bestOne != NULL){
+      bestOne->untrain(image, y);
+    }
+  }
 
   double predict(const BinInput& image) const {
     double bestScore = 0.0;
